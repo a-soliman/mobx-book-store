@@ -1,4 +1,5 @@
-import { configure, observable, action, computed, autorun } from 'mobx';
+import { configure, observable, action, runInAction } from 'mobx';
+import { searchBooks } from '../webUtils/webUtils';
 
 configure({
   enforceActions: 'strict'
@@ -17,7 +18,21 @@ class BookSearchStore {
 
   @action.bound
   async search() {
-    // todo :::
+    try {
+      this.state = 'pending';
+      const result = await searchBooks(this.term);
+
+      runInAction(() => {
+        this.totalCount = result.length;
+        this.results = result.items;
+        this.state = 'completed';
+      });
+    } catch(e) {
+      runInAction(() => {
+        this.state = 'failed';
+        console.log(e);
+      })
+    }
   }
 }
 
