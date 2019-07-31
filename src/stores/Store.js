@@ -4,30 +4,22 @@ configure({
   enforceActions: 'strict'
 });
 
-class Store {
-  @observable items = ['item1', 'item2', 'item3'];
+class BookSearchStore {
+  @observable term = '';
+  @observable state = '';
+  @observable results = '';
+  @observable totalCount = 0;
 
-  constructor() {
-    this.autoRun = autorun(() => {
-      console.log(`currently we have ${this.items.length} items.`)
-
-      if(this.items.length >= 10) {
-        this.autoRun();
-      }
-    })
+  @action.bound
+  setSearchTerm(term) {
+    this.term = term;
   }
 
-  @action addItem = (item) => {
-    this.items.unshift(item);
-  };
-
-  @computed get itemsCount() {
-    return this.items.length;
-  }
-  test() {
-    this.items.push('aloha');
+  @action.bound
+  async search() {
+    // todo :::
   }
 }
 
-const store = new Store();
+const store = new BookSearchStore();
 export default store;
