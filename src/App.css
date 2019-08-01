@@ -3,6 +3,7 @@ main {
   display: flex;
   height: 100ch;
   flex-direction: column;
+  align-items: center;
 }
 
 main > section {
@@ -10,4 +11,12 @@ main > section {
   display: flex;
   width: 100%;
   justify-content: center;
+  width: 80%;
+  max-width: 800px;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  padding: 0 10px;
 }
