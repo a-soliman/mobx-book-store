@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { inject, observer } from 'mobx-react';
 import Header from './components/Header';
 import SearchField from './components/SearchField';
+import Results from './components/Results';
 import styles from './App.css';
 
 
@@ -24,6 +25,10 @@ const App = inject('Store')(observer(({ Store }) => {
         changeHandler={changeHandler}
         submitHandler={submitHandler}
       />
+      {state === 'pending' && <div>Pending</div>}
+      {state === 'failed' && <div>{`Failed to fetch results for ${term}`}</div>}
+      {state === 'completed' && <Results books={results} />}
+
     </main>
   );
 }));
